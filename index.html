@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a20">
+  <meta name="description" content="从唐朝建立到 2026 年，沿时间轴查看中国历史事件、历史版图和经典史料。">
+  <title>千年纪事 · 中国历史时间轴</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="events.js" defer></script>
+  <script src="early-expansion.js" defer></script>
+  <script src="modern-expansion.js" defer></script>
+  <script src="modern-extra-early.js" defer></script>
+  <script src="modern-extra-middle.js" defer></script>
+  <script src="modern-extra-late.js" defer></script>
+  <script src="atlas.js" defer></script>
+  <script src="places.js" defer></script>
+  <script src="early-images.js" defer></script>
+  <script src="modern-images.js" defer></script>
+  <script src="modern-extra-images.js" defer></script>
+  <script src="historical-maps.js" defer></script>
+  <script src="event-map.js" defer></script>
+  <script src="timeline.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#timeline">跳到时间轴</a>
+  <svg class="event-connector" id="event-connector" aria-hidden="true" hidden>
+    <path class="connector-shadow"></path><path class="connector-line"></path>
+  </svg>
+  <header class="masthead">
+    <div class="frame masthead-inner">
+      <div class="brand"><span class="seal" aria-hidden="true">千年<br>纪事</span><span>千年纪事<span class="brand-en">A TIMELINE OF CHINA</span></span></div>
+      <nav aria-label="网站导航">
+        <button type="button" id="open-modern">近现代</button>
+        <button type="button" id="open-directory"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.1M4 12h.1M4 18h.1"/></svg>事件目录</button>
+        <button type="button" id="open-sources"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 6a8 8 0 0 0-9-1v14a8 8 0 0 1 9 1 8 8 0 0 1 9-1V5a8 8 0 0 0-9 1Zm0 0v14"/></svg>资料来源</button>
+      </nav>
+    </div>
+  </header>
+  <main class="frame">
+    <div class="intro">
+      <div>
+        <p class="eyebrow"><i></i> 中国历史时间轴 <span>·</span> 618 — 2026</p>
+        <h1>从唐朝到今天</h1>
+        <p class="lede">时间轴连到地图上的地点，随事件查看历史版图与史料。</p>
+      </div>
+      <div class="volume" aria-hidden="true"><span>历史档案</span><b>618<span>—</span>2026</b><small id="record-count"></small></div>
+    </div>
+
+    <div class="story">
+      <article id="event" class="event" aria-labelledby="event-title">
+        <div class="event-meta"><span id="chapter-label"></span><span class="event-index" id="event-index"></span></div>
+        <div id="event-copy" class="event-copy">
+          <div class="date-line"><p id="date" class="date"></p><span id="event-kind"></span></div>
+          <h2 id="event-title" tabindex="-1"></h2>
+          <p class="location"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 10c0 5-8 10-8 10s-8-5-8-10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.4"/></svg><span id="location"></span></p>
+          <a class="jump-map" href="#event-map">看地图 <span aria-hidden="true">↓</span></a>
+          <p class="narrative" id="summary"></p>
+          <div class="impact"><span>历史影响</span><p id="impact"></p></div>
+          <div id="same-year" class="same-year" hidden></div>
+        </div>
+        <figure class="map-media">
+          <span class="media-kicker">相关史料图像</span>
+          <button type="button" id="open-photo" class="open-photo" aria-label="查看大图" hidden>
+            <img id="event-photo" alt="" decoding="async">
+            <span aria-hidden="true">放大 ↗</span>
+          </button>
+          <p class="media-empty" id="photo-status"></p>
+          <figcaption id="photo-credit"></figcaption>
+        </figure>
+        <div class="event-foot"><div id="event-sources" class="event-sources" aria-label="事件资料来源"></div><div class="step-buttons">
+          <button type="button" id="prev" aria-label="上一事件" title="上一事件"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button>
+          <button type="button" id="next" aria-label="下一事件" title="下一事件"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button>
+        </div></div>
+      </article>
+
+      <section class="map-pane" id="event-map" aria-labelledby="map-title">
+        <header class="map-head">
+          <div><p class="map-kicker" id="map-context"></p><h2 id="map-title">事件地图</h2></div>
+          <div class="map-modes" aria-label="底图范围">
+            <button type="button" id="map-history" aria-pressed="false">历史版图</button>
+            <button type="button" id="map-china" aria-pressed="true">现代中国</button>
+            <button type="button" id="map-world" aria-pressed="false">世界位置</button>
+          </div>
+        </header>
+        <div class="map-content">
+            <div class="map-viewport" id="map-viewport">
+              <div class="map-sheet history-sheet" id="history-sheet" hidden>
+                <img id="history-image" alt="">
+                <div class="map-pins" id="history-pins"></div>
+                <p id="history-status" class="history-status" role="status" hidden></p>
+              </div>
+              <div class="map-sheet china-sheet" id="china-sheet">
+                <img src="images/china-standard.jpg" width="1648" height="1292" alt="中国标准地图，含海南、台湾和南海诸岛附图">
+                <div class="map-pins" id="china-pins"></div>
+              </div>
+              <div class="map-sheet world-sheet" id="world-sheet" hidden>
+                <img src="images/world-land.svg" width="900" height="355" alt="世界陆地轮廓图">
+                <div class="map-pins" id="world-pins"></div>
+              </div>
+            </div>
+            <div class="map-tools"><p class="map-credit" id="map-credit"></p><button type="button" id="expand-map">放大地图 ↗</button></div>
+            <div class="map-locations" id="map-locations" aria-label="事件地点"></div>
+            <p class="map-note" id="map-note" hidden></p>
+        </div>
+      </section>
+    </div>
+
+    <section id="timeline" class="timeline" aria-labelledby="timeline-title">
+      <div class="timeline-head">
+        <div class="timeline-heading"><span class="timeline-year" id="timeline-year" title="当前事件年份"></span><div><h2 id="timeline-title">历史时间轴</h2><p id="timeline-hint">拖动浏览，松手定位到事件。</p></div></div>
+        <div class="timeline-controls">
+          <button type="button" id="play-events" aria-pressed="false">▶ 播放</button>
+          <select id="play-speed" aria-label="播放速度" title="播放速度"><option value="1">1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+          <select id="chapter-select" aria-label="选择历史时期"></select>
+        </div>
+      </div>
+      <div class="overview">
+        <span class="overview-label">全览</span><span class="overview-year">618</span>
+        <div class="track">
+          <div id="ruler" class="ruler" aria-hidden="true"></div>
+          <input id="slider" type="range" min="618" max="2026" value="618" step="1" aria-label="全览时间轴，游标年份">
+        </div>
+        <span class="overview-year">2026</span>
+      </div>
+      <div class="matrix" aria-label="按时间和主题查看事件">
+        <div id="lane-labels" class="lane-labels"></div>
+        <div id="plot" class="plot" aria-label="分段时间轴，节点按真实年份排列">
+          <div id="plot-lines" class="plot-lines" aria-hidden="true"></div>
+          <div id="plot-rows" class="plot-rows"></div>
+          <div class="plot-cursor" aria-hidden="true"></div>
+        </div>
+        <span class="matrix-label">年份</span><div id="ticks" class="ticks" aria-hidden="true"></div>
+      </div>
+    </section>
+    <footer><span>千年纪事 <span class="dot">·</span> 中国历史时间轴</span><span>618—2026 年选编</span></footer>
+  </main>
+  <dialog id="info" aria-labelledby="info-title">
+    <div class="dialog-head"><h2 id="info-title"></h2><form method="dialog"><button aria-label="关闭" title="关闭">×</button></form></div>
+    <div id="info-body" class="dialog-body"></div>
+  </dialog>
+  <dialog id="map-dialog" aria-labelledby="map-dialog-title">
+    <div class="dialog-head"><h2 id="map-dialog-title">事件地图</h2><form method="dialog"><button aria-label="关闭地图" title="关闭地图">×</button></form></div>
+    <div class="map-enlarged" id="map-enlarged"></div>
+  </dialog>
+  <dialog id="photo-dialog" aria-labelledby="photo-dialog-title">
+    <div class="dialog-head"><h2 id="photo-dialog-title">史料图像</h2><form method="dialog"><button aria-label="关闭大图" title="关闭大图">×</button></form></div>
+    <figure class="photo-viewer">
+      <img id="photo-full" alt="">
+      <figcaption id="photo-full-credit"></figcaption>
+    </figure>
+  </dialog>
+  <noscript><p class="frame">请启用 JavaScript 使用互动时间轴。</p></noscript>
+</body>
+</html>
